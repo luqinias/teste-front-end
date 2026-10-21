@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://app.econverse.com.br/teste-front-end/junior/tecnologia/lista-produtos/produtos.json",
+  "title": "Catálogo de produtos Econverse (teste front-end)",
+  "type": "object",
+  "required": ["products"],
+  "properties": {
+    "success": { "type": "boolean" },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["productName", "descriptionShort", "photo", "price"],
+        "properties": {
+          "productName": { "type": "string", "minLength": 1 },
+          "descriptionShort": { "type": "string" },
+          "photo": { "type": "string", "format": "uri" },
+          "price": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Preço em centavos (149990 = R$ 1.499,90)"
+          }
+        }
+      }
+    }
+  }
+}

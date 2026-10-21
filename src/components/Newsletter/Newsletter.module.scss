@@ -1,0 +1,188 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Faixa 1440×162 (#271C47).
+.newsletter {
+  margin-top: $section-gap + 1px; // 91px no layout
+  color: $color-white;
+  background: $color-dark;
+}
+
+.container {
+  @include container;
+
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  justify-content: space-between;
+  min-height: 162px;
+  padding-block: 40px 30px;
+
+  @include respond-below($bp-lg) {
+    flex-direction: column;
+    gap: 24px;
+  }
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 515px;
+}
+
+.title {
+  @include text($font-display, $fw-semibold, 32px, 38.4px);
+
+  @include respond-below($bp-sm) {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+.text {
+  @include text($font-primary, $fw-light, 14px, 18px);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 639px;
+  max-width: 100%;
+  margin-top: 5px;
+  margin-right: 2px;
+}
+
+.fields {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+
+  @include respond-below($bp-sm) {
+    flex-direction: column;
+  }
+}
+
+.field {
+  display: flex;
+  flex: 0 1 233px;
+  flex-direction: column;
+  gap: 4px;
+
+  @include respond-below($bp-sm) {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+
+.input {
+  @include text($font-primary, $fw-regular, 14px, 18px, $color-text);
+
+  width: 100%;
+  height: 42px;
+  padding: 12px 24px;
+  background: $color-white;
+  border: 1px solid $color-input-border;
+  border-radius: $radius-lg;
+
+  &::placeholder {
+    color: $color-input-placeholder;
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: 2px solid $color-accent;
+    outline-offset: 1px;
+  }
+
+  &[aria-invalid='true'] {
+    border-color: $color-error;
+    box-shadow: 0 0 0 1px $color-error;
+  }
+}
+
+.submit {
+  @include reset-button;
+  @include text($font-primary, $fw-semibold, 14px, 12px, $color-text-button);
+
+  flex: 0 0 157px;
+  height: 42px;
+  margin-left: auto;
+  text-transform: uppercase;
+  background: $color-accent;
+  border-radius: $radius-lg;
+  transition: filter $transition-fast;
+
+  &:hover {
+    filter: brightness(1.08);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-white;
+    outline-offset: 2px;
+  }
+
+  @include respond-below($bp-sm) {
+    flex-basis: auto;
+    width: 100%;
+  }
+}
+
+.terms {
+  @include text($font-primary, $fw-regular, 14px, 21px);
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  align-items: center;
+
+  label {
+    cursor: pointer;
+  }
+
+  .error {
+    flex-basis: 100%;
+  }
+}
+
+.checkbox {
+  display: grid;
+  flex-shrink: 0;
+  place-content: center;
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  cursor: pointer;
+  background: $color-checkbox-bg;
+  border: 1px solid $color-checkbox-border;
+  border-radius: 1px;
+  appearance: none;
+
+  &::before {
+    width: 9px;
+    height: 9px;
+    content: '';
+    background: $color-dark;
+    clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+    transform: scale(0);
+    transition: transform $transition-fast;
+  }
+
+  &:checked::before {
+    transform: scale(1);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 2px;
+  }
+}
+
+.error {
+  @include text($font-primary, $fw-regular, 12px, 16px, $color-error);
+}
+
+.success {
+  @include text($font-primary, $fw-medium, 14px, 21px, $color-accent);
+}

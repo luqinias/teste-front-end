@@ -1,0 +1,8 @@
+dist
+coverage
+node_modules
+.specify
+.claude
+specs
+package-lock.json
+*.svg

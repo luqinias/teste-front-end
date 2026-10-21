@@ -1,0 +1,54 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.nav {
+  @include container;
+}
+
+// Barra de 40px com borda superior e sombra (Figma "Rectangle 1").
+.list {
+  @include reset-list;
+
+  display: flex;
+  gap: 91px;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  background: $color-white;
+  border-top: 1px solid $color-divider;
+  box-shadow: $shadow-header-nav;
+
+  @include respond-below($bp-xl) {
+    gap: clamp(24px, 4.5vw, 91px);
+  }
+
+  @include respond-below($bp-md) {
+    justify-content: flex-start;
+    padding-inline: 16px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+}
+
+.link {
+  @include text($font-primary, $fw-semibold, 12px, 18px, $color-muted);
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  white-space: nowrap;
+  text-transform: uppercase;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $color-primary-alt;
+  }
+}
+
+.highlight {
+  color: $color-primary-alt;
+}
+
+.subscription img {
+  margin-top: -2px;
+}

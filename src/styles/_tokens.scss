@@ -1,0 +1,91 @@
+// Design tokens extraídos do Figma "Teste Front-End Jr" (frame Home, 1440px).
+// Referência completa: specs/001-home-vitrine-produtos/research.md#design-tokens
+
+// Cores
+$color-primary: #3442b5;
+$color-primary-alt: #3019b2;
+$color-accent: #f7ca11;
+$color-dark: #271c47;
+$color-white: #fff;
+$color-black: #000;
+
+$color-text: #3f3f40;
+$color-text-tab: #3b3b3b;
+$color-text-button: #161615;
+$color-muted: #9f9f9f;
+$color-strike: #808080;
+$color-category-text: #4e4e4e;
+$color-footer-text: rgba(34, 34, 34, 0.71);
+$color-input-placeholder: #676767;
+
+$color-surface-alt: #f4f4f4;
+$color-search-bg: #f6f5f2;
+$color-border: #bdbdbd;
+$color-line: #dedede;
+$color-divider: #f0f0f0;
+$color-footer-divider: rgba(40, 40, 40, 0.18);
+$color-input-border: #e7e7e7;
+$color-qty-border: #d9d9d9;
+$color-close: #707070;
+$color-checkbox-bg: #f6f6f6;
+$color-checkbox-border: #8c342b;
+$color-overlay: rgba(0, 0, 0, 0.54);
+$color-error: #ffb4a8;
+
+// Tipografia
+$font-primary:
+  'Poppins',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  sans-serif;
+$font-secondary:
+  'Work Sans',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  sans-serif;
+$font-display:
+  'Outfit',
+  system-ui,
+  -apple-system,
+  'Segoe UI',
+  sans-serif;
+
+$fw-light: 300;
+$fw-regular: 400;
+$fw-medium: 500;
+$fw-semibold: 600;
+$fw-bold: 700;
+
+// Sombras
+$shadow-card: 0 3px 19px rgba(0, 0, 0, 0.22);
+$shadow-category: 0 4px 11px rgba(0, 0, 0, 0.13);
+$shadow-category-active: 0 2px 9px rgba(0, 0, 0, 0.22);
+$shadow-arrow: 0 4px 4px rgba(0, 0, 0, 0.25);
+$shadow-brand: 0 7px 20px rgba(0, 0, 0, 0.13);
+$shadow-header-nav: 0 8px 16px rgba(57, 48, 19, 0.12);
+
+// Raios
+$radius-xs: 4px;
+$radius-sm: 5px;
+$radius-md: 6px;
+$radius-lg: 8px;
+$radius-xl: 10px;
+$radius-banner: 20px;
+
+// Layout
+$layout-width: 1440px;
+$container-width: 1280px;
+$container-gutter: 80px;
+$section-gap: 90px;
+
+// Breakpoints (max-width)
+$bp-xl: 1439px;
+$bp-lg: 1279px;
+$bp-md: 959px;
+$bp-sm: 599px;
+
+// Movimento
+$transition-fast: 150ms ease;
+$transition-base: 250ms ease;

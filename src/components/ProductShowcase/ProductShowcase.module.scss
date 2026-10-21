@@ -1,0 +1,266 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+$card-gap: 18px;
+$track-width: 1270px; // 4 cards de 304px + 3 × 18px
+$shadow-room: 24px;
+
+.showcase {
+  margin-top: $section-gap;
+}
+
+.container {
+  @include container;
+}
+
+// Abas ----------------------------------------------------------------------
+
+.tabs {
+  display: flex;
+  margin-top: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.tab {
+  @include reset-button;
+  @include text($font-primary, $fw-regular, 16px, 16px, $color-text-tab);
+
+  flex: 1 1 0;
+  min-width: 140px;
+  height: 40px;
+  padding: 12px 16px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  background: $color-white;
+  border: 1px solid $color-border;
+  transition:
+    color $transition-fast,
+    background-color $transition-fast;
+
+  & + & {
+    margin-left: -1px;
+  }
+
+  &:hover {
+    color: $color-primary;
+    background: rgba($color-primary, 0.04);
+  }
+
+  &:focus-visible {
+    position: relative;
+    z-index: 1;
+    outline-offset: -3px;
+  }
+}
+
+.tab-active {
+  font-weight: $fw-bold;
+  color: $color-primary;
+}
+
+.see-all {
+  @include text($font-primary, $fw-bold, 15px, 22.5px, $color-text);
+  @include focus-ring;
+
+  display: block;
+  width: fit-content;
+  margin: 4px auto 0;
+
+  &:hover {
+    color: $color-primary;
+    text-decoration: underline;
+  }
+}
+
+.panel {
+  margin-top: 24px;
+}
+
+.panel-see-all {
+  margin-top: 25px;
+}
+
+// Carrossel -----------------------------------------------------------------
+
+.carousel {
+  position: relative;
+  max-width: $track-width;
+  margin-inline: auto;
+}
+
+.viewport {
+  // Espaço extra para as sombras dos cards não serem cortadas.
+  margin: -$shadow-room;
+  padding: $shadow-room;
+  overflow: hidden;
+
+  // No mobile o respiro não pode passar da margem lateral de 16px.
+  @include respond-below($bp-sm) {
+    margin: -$shadow-room -16px;
+    padding: $shadow-room 16px;
+  }
+}
+
+.track {
+  @include reset-list;
+
+  display: flex;
+  gap: $card-gap;
+  transform: translateX(calc(var(--page) * -1 * (100% + #{$card-gap})));
+  transition: transform 450ms cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.slide {
+  flex: 0 0 calc((100% - #{$card-gap} * (var(--per-page) - 1)) / var(--per-page));
+  min-width: 0;
+  transition: opacity 300ms ease;
+
+  &[aria-hidden='true'] {
+    opacity: 0;
+  }
+}
+
+.arrow {
+  @include reset-button;
+
+  position: absolute;
+  // 246px abaixo do topo dos cards (Figma) + o respiro de sombra do viewport.
+  top: 246px + $shadow-room;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  background: $color-white;
+  border-radius: 50%;
+  box-shadow: $shadow-arrow;
+  transition:
+    opacity $transition-fast,
+    transform $transition-fast;
+
+  &:hover:not(:disabled) {
+    transform: scale(1.1);
+  }
+
+  &:disabled {
+    cursor: default;
+    opacity: 0.35;
+  }
+}
+
+.arrow-prev {
+  left: -46px;
+
+  img {
+    margin-right: 3px;
+  }
+
+  @include respond-below($bp-lg) {
+    left: -36px;
+  }
+
+  @include respond-below($bp-sm) {
+    left: -12px;
+  }
+}
+
+.arrow-next {
+  right: -47px;
+
+  img {
+    margin-left: 3px;
+  }
+
+  @include respond-below($bp-lg) {
+    right: -36px;
+  }
+
+  @include respond-below($bp-sm) {
+    right: -12px;
+  }
+}
+
+// Estados -------------------------------------------------------------------
+
+.placeholders {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: $card-gap;
+  max-width: $track-width;
+  margin-inline: auto;
+
+  @include respond-below($bp-lg) {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  @include respond-below($bp-md) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @include respond-below($bp-sm) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.placeholder {
+  height: 500px;
+  background: linear-gradient(90deg, $color-surface-alt 25%, #fafafa 50%, $color-surface-alt 75%);
+  background-size: 200% 100%;
+  border-radius: $radius-xl;
+  animation: shimmer 1.4s ease-in-out infinite;
+
+  @include respond-below($bp-lg) {
+    &:nth-child(n + 5) {
+      display: none;
+    }
+  }
+
+  @include respond-below($bp-md) {
+    &:nth-child(n + 4) {
+      display: none;
+    }
+  }
+
+  @include respond-below($bp-sm) {
+    &:nth-child(n + 3) {
+      display: none;
+    }
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 100% 0;
+  }
+
+  to {
+    background-position: -100% 0;
+  }
+}
+
+.message {
+  @include text($font-primary, $fw-regular, 16px, 24px, $color-text);
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  justify-content: center;
+  min-height: 500px;
+  text-align: center;
+}
+
+.retry {
+  @include reset-button;
+  @include text($font-primary, $fw-bold, 14px, 21px, $color-white);
+
+  padding: 10px 24px;
+  text-transform: uppercase;
+  background: $color-primary;
+  border-radius: $radius-xs;
+}

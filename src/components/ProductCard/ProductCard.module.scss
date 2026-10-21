@@ -1,0 +1,102 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Card 304×500 (Figma): conteúdo com 13px de margem lateral.
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  padding: 32px 13px 16px;
+  background: $color-white;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-card;
+  transition:
+    transform $transition-base,
+    box-shadow $transition-base;
+
+  &:hover,
+  &:focus-within {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.24);
+  }
+}
+
+.photo {
+  width: 100%;
+  height: 228px;
+  object-fit: contain;
+}
+
+.title {
+  margin-top: 9px;
+}
+
+.title-button {
+  @include reset-button;
+  @include text($font-primary, $fw-light, 15px, 22.5px, $color-text);
+  @include line-clamp(2);
+
+  width: 100%;
+  height: 45px;
+  text-align: left;
+
+  &::after {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    content: '';
+    border-radius: $radius-xl;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+
+  &:focus-visible::after {
+    outline: 2px solid $color-primary;
+    outline-offset: 2px;
+  }
+}
+
+.prices {
+  margin-top: 13px;
+}
+
+.previous-price {
+  @include text($font-primary, $fw-regular, 16px, 24px, $color-strike);
+
+  display: block;
+  height: 24px;
+  margin-bottom: 2px;
+  text-decoration: line-through;
+}
+
+.price {
+  @include text($font-primary, $fw-bold, 20px, 30px, $color-text);
+}
+
+.installments {
+  @include text($font-primary, $fw-regular, 12px, 18px, $color-text);
+
+  margin-top: 2px;
+}
+
+.shipping {
+  @include text($font-primary, $fw-regular, 12px, 18px, $color-primary);
+
+  margin-top: 7px;
+}
+
+.buy {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 44px;
+  margin-top: auto;
+  font-size: 14px;
+  font-weight: $fw-bold;
+  line-height: 21px;
+  text-transform: uppercase;
+  border-radius: $radius-xs;
+}

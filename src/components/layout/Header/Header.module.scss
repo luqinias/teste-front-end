@@ -1,0 +1,139 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+.header {
+  position: relative;
+  z-index: 10;
+  background: $color-white;
+}
+
+// Linha central de 72px: logo (x=80), busca 630×48 (x=405) e ícones (x=1144).
+.main {
+  @include container;
+
+  display: flex;
+  align-items: center;
+  height: 72px;
+
+  @include respond-below($bp-md) {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'logo actions'
+      'search search';
+    row-gap: 12px;
+    height: auto;
+    padding-block: 12px;
+  }
+}
+
+.logo {
+  display: block;
+  flex-shrink: 0;
+  width: 139px;
+  border-radius: $radius-sm;
+
+  @include respond-below($bp-md) {
+    grid-area: logo;
+  }
+}
+
+.search {
+  position: relative;
+  display: block;
+  flex: 0 1 630px;
+  margin-left: 186px;
+  margin-right: 24px;
+
+  @include respond-below($bp-xl) {
+    flex-grow: 1;
+    margin-left: clamp(24px, 8vw, 186px);
+  }
+
+  @include respond-below($bp-md) {
+    grid-area: search;
+    margin: 0;
+  }
+}
+
+.search-input {
+  @include text($font-primary, $fw-medium, 14px, 21px, $color-text);
+
+  width: 100%;
+  height: 48px;
+  padding: 0 56px 0 16px;
+  background: $color-search-bg;
+  border: 1px solid transparent;
+  border-radius: $radius-xl;
+  appearance: none;
+
+  &::placeholder {
+    color: $color-muted;
+    opacity: 1;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+  }
+
+  &::-webkit-search-cancel-button {
+    appearance: none;
+  }
+}
+
+.search-button {
+  @include reset-button;
+
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  transform: translateY(-50%);
+}
+
+.actions {
+  @include reset-list;
+
+  display: flex;
+  margin-left: auto;
+  gap: 32px;
+  align-items: center;
+
+  @include respond-below($bp-sm) {
+    gap: 16px;
+  }
+
+  @include respond-below($bp-md) {
+    grid-area: actions;
+  }
+}
+
+.action {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: transform $transition-fast;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  img {
+    max-width: none;
+  }
+
+  @include respond-below($bp-sm) {
+    width: 28px;
+    height: 28px;
+
+    img {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}

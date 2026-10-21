@@ -1,0 +1,102 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Banner 1440×390 com gradiente preto à esquerda (966px, opacidade .8).
+.hero {
+  position: relative;
+  height: 390px;
+  overflow: hidden;
+  background: $color-dark;
+
+  &::before {
+    position: absolute;
+    inset: 0 auto 0 0;
+    z-index: 1;
+    width: 966px;
+    max-width: 100%;
+    content: '';
+    background: linear-gradient(to left, rgba($color-black, 0) 0%, $color-black 85.04%);
+    opacity: 0.8;
+  }
+
+  @include respond-below($bp-md) {
+    height: auto;
+    min-height: 320px;
+
+    &::before {
+      width: 100%;
+    }
+  }
+}
+
+.background {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.content {
+  @include container;
+
+  position: relative;
+  z-index: 2;
+  padding-top: 78px;
+  color: $color-white;
+
+  @include respond-below($bp-md) {
+    padding-block: 48px;
+  }
+}
+
+.title {
+  @include text($font-primary, $fw-semibold, 48px, 50px);
+
+  max-width: 822px;
+  margin-left: 1px;
+
+  @include respond-below($bp-md) {
+    font-size: 36px;
+    line-height: 40px;
+  }
+
+  @include respond-below($bp-sm) {
+    font-size: 28px;
+    line-height: 34px;
+  }
+}
+
+.subtitle {
+  @include text($font-primary, $fw-regular, 32px, 48px);
+
+  margin-top: 18px;
+  margin-left: -2px;
+
+  strong {
+    font-weight: $fw-bold;
+    color: $color-accent;
+  }
+
+  @include respond-below($bp-sm) {
+    font-size: 24px;
+    line-height: 36px;
+  }
+}
+
+.cta {
+  width: 206px;
+  height: 50px;
+  margin-top: 41px;
+  margin-left: 7px;
+  font-size: 16px;
+  font-weight: $fw-semibold;
+  line-height: 24px;
+  border-radius: $radius-sm;
+
+  @include respond-below($bp-md) {
+    margin-top: 24px;
+    margin-left: 0;
+  }
+}

@@ -1,0 +1,90 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// 7 itens de 128px com 42px de espaço (1160px), 39px abaixo do banner.
+.categories {
+  @include container;
+
+  margin-top: 39px;
+}
+
+.list {
+  @include reset-list;
+
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+  max-width: 1160px;
+  margin-inline: auto;
+
+  // Abaixo de 1280px os 7 atalhos não cabem: rolagem horizontal (com respiro para a sombra).
+  @include respond-below($bp-lg) {
+    padding: 12px 4px;
+    margin: -12px -4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  > li {
+    flex-shrink: 0;
+  }
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  align-items: center;
+  width: 128px;
+  border-radius: $radius-xl;
+
+  &:hover .box {
+    transform: translateY(-3px);
+  }
+
+  @include respond-below($bp-sm) {
+    width: 96px;
+    gap: 14px;
+  }
+}
+
+.box {
+  display: grid;
+  place-items: center;
+  width: 128px;
+  height: 128px;
+  background: $color-surface-alt;
+  border-radius: $radius-xl;
+  box-shadow: $shadow-category;
+  transition:
+    transform $transition-base,
+    background-color $transition-base;
+
+  @include respond-below($bp-sm) {
+    width: 96px;
+    height: 96px;
+
+    img {
+      width: 46px;
+      height: 46px;
+    }
+  }
+}
+
+.label {
+  @include text($font-primary, $fw-medium, 14px, 21px, $color-category-text);
+
+  white-space: nowrap;
+}
+
+.active {
+  .box {
+    background: $color-white;
+    box-shadow: $shadow-category-active;
+  }
+
+  .label {
+    font-weight: $fw-semibold;
+    color: $color-primary-alt;
+  }
+}

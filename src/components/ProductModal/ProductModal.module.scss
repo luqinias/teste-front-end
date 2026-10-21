@@ -1,0 +1,204 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Modal 769×299 (Figma, frame Popup).
+.dialog {
+  width: 769px;
+  max-width: calc(100% - 32px);
+  max-height: calc(100% - 32px);
+  padding: 0;
+  overflow: auto;
+  color: $color-text;
+  background: $color-white;
+  border: 0;
+  border-radius: $radius-md;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25);
+
+  &::backdrop {
+    background: $color-overlay;
+  }
+
+  &[open] {
+    animation: modal-in 200ms ease-out;
+  }
+
+  &[open]::backdrop {
+    animation: fade-in 200ms ease-out;
+  }
+}
+
+@keyframes modal-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+}
+
+.content {
+  position: relative;
+  display: grid;
+  grid-template-columns: 247px 328px;
+  column-gap: 87px;
+  align-items: start;
+  min-height: 299px;
+  padding: 56px 51px 38px 56px;
+
+  @include respond-below($bp-md) {
+    grid-template-columns: 1fr;
+    row-gap: 24px;
+    justify-items: center;
+    padding: 48px 24px 32px;
+  }
+}
+
+.close {
+  @include reset-button;
+
+  position: absolute;
+  top: 9px;
+  right: 21px;
+  width: 31px;
+  height: 31px;
+  border-radius: 50%;
+
+  // "X" desenhado com duas linhas de 2px (#707070), como no layout.
+  &::before,
+  span {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 18px;
+    height: 2px;
+    content: '';
+    background: $color-close;
+  }
+
+  &::before {
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  span {
+    transform: translate(-50%, -50%) rotate(-45deg);
+  }
+
+  &:hover {
+    background: $color-surface-alt;
+  }
+}
+
+.photo {
+  width: 247px;
+  height: 192px;
+  object-fit: contain;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  padding-top: 7px;
+
+  @include respond-below($bp-md) {
+    width: 100%;
+    max-width: 328px;
+  }
+}
+
+.name {
+  @include text($font-primary, $fw-regular, 20px, 17px, $color-text); // caixa de 17px no Figma
+
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.price {
+  @include text($font-primary, $fw-semibold, 20px, 17px, $color-text);
+
+  margin-top: 18px;
+  letter-spacing: 1px;
+}
+
+.description {
+  @include text($font-secondary, $fw-medium, 10px, 15.05px, $color-muted);
+
+  max-width: 290px;
+  margin-top: 32px;
+  letter-spacing: 0.5px;
+}
+
+.details {
+  @include text($font-secondary, $fw-semibold, 11px, 11px, $color-primary);
+  @include focus-ring;
+
+  width: fit-content;
+  margin-top: 18px;
+  letter-spacing: 0.55px;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.quantity {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 110px;
+  height: 36px;
+  padding: 0 9px;
+  background: $color-white;
+  border: 1px solid $color-qty-border;
+  border-radius: $radius-xs;
+}
+
+.quantity-button {
+  @include reset-button;
+
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+  }
+
+  &:hover:not(:disabled) {
+    background: $color-surface-alt;
+  }
+}
+
+.quantity-value {
+  @include text($font-primary, $fw-medium, 16px, 16px, $color-dark);
+
+  min-width: 20px;
+  text-align: center;
+}
+
+.buy {
+  width: 188px;
+  height: 36px;
+  font-size: 14px;
+  font-weight: $fw-bold;
+  line-height: 21px;
+  text-transform: uppercase;
+  border-radius: $radius-md;
+
+  @include respond-below($bp-sm) {
+    flex: 1;
+    width: auto;
+  }
+}

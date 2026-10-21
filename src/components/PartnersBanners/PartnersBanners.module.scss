@@ -1,0 +1,94 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Dois banners 634×350 (raio 20) com 13px de espaço; o bloco começa em x=79.
+.partners {
+  @include container;
+
+  margin-top: $section-gap;
+}
+
+.list {
+  @include reset-list;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 634px));
+  gap: 13px;
+  justify-content: center;
+  margin-left: -1px;
+
+  @include respond-below($bp-md) {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+    margin-left: 0;
+  }
+}
+
+.banner {
+  position: relative;
+  height: 350px;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: $radius-banner;
+
+  // Gradiente inferior (Figma "Rectangle 107": 261px, transparente → preto, opacidade .8).
+  &::after {
+    position: absolute;
+    inset: auto 0 0;
+    z-index: -1;
+    height: 261px;
+    content: '';
+    background: linear-gradient(to bottom, rgba($color-black, 0) 0%, $color-black 85.04%);
+    opacity: 0.8;
+  }
+
+  &:hover .image {
+    transform: scale(1.03);
+  }
+
+  @include respond-below($bp-sm) {
+    height: 300px;
+  }
+}
+
+.image {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 600ms ease;
+}
+
+.content {
+  padding: 114px 44px 0;
+  color: $color-white;
+
+  @include respond-below($bp-sm) {
+    padding: 72px 24px 0;
+  }
+}
+
+.title {
+  @include text($font-primary, $fw-bold, 40px, 60px);
+}
+
+.text {
+  @include text($font-primary, $fw-regular, 16px, 24px);
+
+  max-width: 200px;
+  margin-top: 8px;
+}
+
+.cta {
+  width: 145px;
+  height: 48px;
+  margin-top: 32px;
+  font-size: 16px;
+  font-weight: $fw-bold;
+  line-height: 24px;
+  letter-spacing: 1.28px;
+  text-transform: uppercase;
+  border-radius: $radius-md;
+}

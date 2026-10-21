@@ -1,0 +1,68 @@
+@use 'tokens' as *;
+@use 'mixins' as *;
+
+// Título + 5 círculos de 211px com 42px de espaço, 32px abaixo do título.
+.brands {
+  @include container;
+
+  margin-top: $section-gap;
+}
+
+.list {
+  @include reset-list;
+
+  display: flex;
+  gap: 42px;
+  justify-content: center;
+  padding-block: 0 20px;
+  margin-top: 32px;
+  margin-bottom: -20px;
+  // No layout o grupo de marcas fica 6,5px à esquerda do centro (x=102 a 1325).
+  margin-left: -13px;
+
+  @include respond-below($bp-lg) {
+    gap: 24px;
+    margin-left: 0;
+  }
+
+  @include respond-below($bp-md) {
+    justify-content: flex-start;
+    padding: 4px 4px 24px;
+    margin-inline: -4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+}
+
+.brand {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 211px;
+  height: 211px;
+  background: $color-white;
+  border-radius: 50%;
+  box-shadow: $shadow-brand;
+  transition:
+    transform $transition-base,
+    box-shadow $transition-base;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.16);
+  }
+
+  @include respond-below($bp-lg) {
+    width: 168px;
+    height: 168px;
+
+    img {
+      width: 96px;
+    }
+  }
+
+  @include respond-below($bp-sm) {
+    width: 140px;
+    height: 140px;
+  }
+}
